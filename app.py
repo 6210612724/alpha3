@@ -28,7 +28,7 @@ def callback():
     decoded = json.loads(json_line)
     no_event = len(decoded['events'])
     #for i in range(no_event):
-    event = decoded['events']
+    event = decoded['events'][0]
     event_handle(event)
         
     return '',200
