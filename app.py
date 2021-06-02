@@ -61,10 +61,11 @@ def event_handle(event):
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
 
-    if event == "hello":
-        #msg = str(event["message"]["text"])
-        replyObj = TextSendMessage("go")
-        line_bot_api.reply_message(rtoken, replyObj)
+    if msgType == "text":
+        msg = str(event["message"]["text"])
+        if msg == "hello":
+            replyObj = TextSendMessage(text="go")
+            line_bot_api.reply_message(rtoken, replyObj)
 
     else:
         sk_id = np.random.randint(1,17)
