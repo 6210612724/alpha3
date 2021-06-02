@@ -26,14 +26,10 @@ def callback():
     json_line = request.get_json(force=False,cache=False)
     json_line = json.dumps(json_line)
     decoded = json.loads(json_line)
-    copy = decoded
-    i = 0
-    while i < 5:
-        no_event = len(copy['events'])
-        for i in range(no_event):
-            event = copy['events'][i]
-            event_handle(event)
-        i+=1
+    no_event = len(decoded['events'])
+    for i in range(no_event):
+        event = decoded['events'][i]
+        event_handle(event)
     return '',200
 
 def cost():
@@ -67,8 +63,14 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
-            final_result = cost()
-            replyObj = TextSendMessage(text=final_result)
+            #final_result = cost()
+            #replyObj = TextSendMessage(text=final_result)
+            #line_bot_api.reply_message(rtoken, replyObj)
+
+            for i in range(0,5):
+                i +=1
+            final = str(i)
+            replyObj = TextSendMessage(text=final)
             line_bot_api.reply_message(rtoken, replyObj)
             
 
