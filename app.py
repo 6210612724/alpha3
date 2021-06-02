@@ -29,18 +29,18 @@ def index():
 
 @app.route('/webhook', methods=['POST'])
 def callback():
-    json_line = request.get_json(force=False,cache=False)
-    json_line = json.dumps(json_line)
-    decoded = json.loads(json_line)
-    no_event = len(decoded['events'])
-    for i in range(no_event):
-        event = decoded['events'][i]
-        #cost()
-        i = 0
-        while i < 5:
+    i = 0
+    while i < 5:
+        json_line = request.get_json(force=False,cache=False)
+        json_line = json.dumps(json_line)
+        decoded = json.loads(json_line)
+        no_event = len(decoded['events'])
+        for i in range(no_event):
+            event = decoded['events'][i]
             event_handle(event)
-            i += 1
-    return '',200
+        i += 1
+        return '',200
+    
 
 def cost():
     api_host = 'https://api.bitkub.com'
@@ -48,7 +48,7 @@ def cost():
     result = response.json()
     lastest_cost = str(result['THB_DOGE']['last'])
     return lastest_cost
-    
+
 
 def event_handle(event):
     print(event)
@@ -75,7 +75,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "ราคาdoge":
+        if msg == "doge":
+            
             final_result = cost()
             replyObj = TextSendMessage(text=final_result)
             line_bot_api.reply_message(rtoken, replyObj)
