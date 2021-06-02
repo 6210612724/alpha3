@@ -72,7 +72,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "ราคา doge":
+        if msg == "ราคาdoge":
             i = 0
             while i < 5:
                 final_result = cost()
