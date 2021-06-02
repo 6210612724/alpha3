@@ -4,6 +4,7 @@
 ###
 from flask import Flask, jsonify, render_template, request
 import json
+import time
 import numpy as np
 import requests
 from linebot.models import (
@@ -67,9 +68,13 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         
-        for i in range(0,5):
-            line_bot_api.push_message(userId, TextSendMessage(text='Hello World!'))
+        if msg == "ทุก10วินาที":
+            i= 0
+            while i < 7:
+                line_bot_api.push_message(userId, TextSendMessage(text=cost()))
+                time.sleep(10)
         
+
         
         
         
