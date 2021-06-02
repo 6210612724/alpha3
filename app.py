@@ -43,7 +43,7 @@ def cost():
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
     result = response.json()
-    lastest_cost = result['THB_DOGE']['last']
+    lastest_cost = str(result['THB_DOGE']['last'])
     return lastest_cost
 
 def event_handle(event):
@@ -72,7 +72,8 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "doge":
-            replyObj = TextSendMessage(text=cost())
+            final_result = cost()
+            replyObj = TextSendMessage(text=final_result)
             line_bot_api.reply_message(rtoken, replyObj)
         else:
             replyObj = TextSendMessage(text=msg)
