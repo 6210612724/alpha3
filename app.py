@@ -6,6 +6,7 @@
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
+import requests
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -34,9 +35,16 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
         event = decoded['events'][i]
+        cost()
         event_handle(event)
     return '',200
 
+def cost():
+    api_host = 'https://api.bitkub.com'
+    response =  requests.get(api_host + '/api/market/ticker')
+    result = response.json()
+    lastest_cost = result['THB_DOGE']['last']
+    return lastest_cost
 
 def event_handle(event):
     print(event)
@@ -63,8 +71,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "แนะนำตัว":
-            replyObj = TextSendMessage(text="ผมคือระบบตอบกลับอัตโนมัติ สร้างโดยคุณธนวินท์ ครับ")
+        if msg == "doge":
+            replyObj = TextSendMessage(text=cost())
             line_bot_api.reply_message(rtoken, replyObj)
         else:
             replyObj = TextSendMessage(text=msg)
@@ -76,6 +84,7 @@ def event_handle(event):
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
     return ''
+
 
 if __name__ == '__main__':
     app.run(debug=True)
