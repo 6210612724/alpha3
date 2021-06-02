@@ -38,8 +38,22 @@ def cost():
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
     result = response.json()
-    lastest_cost = str(result['THB_DOGE']['last'])
-    return lastest_cost
+    lastest_cost = result['THB_DOGE']['last']
+    buy_cost = 11.2
+    buy_money = 50000
+    want_sell = (lastest_cost / buy_cost) * buy_money
+    status = ""
+    if want_sell > buy_money:
+        status = 'ได้กำไร'
+    elif want_sell == buy_money:
+        status = 'เสมอทุน'
+    else:
+        status = 'ขาดทุน'
+    sell_profit = want_sell - buy_money
+
+    result = f'ราคา DOGE: {lastest_cost} บาท ถ้าขายจะได้{status} {sell_profit}.'
+
+    return result
 
 def event_handle(event):
     print(event)
@@ -67,7 +81,6 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        
         if msg == "ทุก5วินาที":
             i= 0
             while i < 5:
