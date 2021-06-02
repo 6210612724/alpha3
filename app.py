@@ -29,9 +29,47 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
         event = decoded['events'][i]
-        event_handle(event)
-        event_handle(event)
+        event_handle(event)        
     return '',200
+
+def again(event):
+    try:
+        userId = event['source']['userId']
+    except:
+        print('error cannot get userId')
+        return ''
+    try:
+        rtoken = event['replyToken']
+    except:
+        print('error cannot get rtoken')
+        return ''
+    try:
+        msgId = event["message"]["id"]
+        msgType = event["message"]["type"]
+    except:
+        print('error cannot get msgID, and msgType')
+        sk_id = np.random.randint(1,17)
+        replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
+        line_bot_api.reply_message(rtoken, replyObj)
+        return ''
+
+    if msgType == "text":
+        msg = str(event["message"]["text"])
+        if msg == "ราคา doge":
+            final_result = cost()
+            replyObj = TextSendMessage(text=final_result)
+            line_bot_api.reply_message(rtoken, replyObj)
+            
+
+        else:
+            replyObj = TextSendMessage(text=msg)
+            line_bot_api.reply_message(rtoken, replyObj)
+    else:
+        sk_id = np.random.randint(1,17)
+        replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
+        line_bot_api.reply_message(rtoken, replyObj)
+    again(event)
+    return ''
 
 def cost():
     api_host = 'https://api.bitkub.com'
@@ -65,7 +103,7 @@ def event_handle(event):
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
             final_result = cost()
-            replyObj = TextSendMessage(text=final_result)
+            replyObj = TextSendMessage(text=again(event))
             line_bot_api.reply_message(rtoken, replyObj)
             
 
