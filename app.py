@@ -63,8 +63,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "hello":
-            replyObj = TextSendMessage(text="test")
+        if msg == "แนะนำตัว":
+            replyObj = TextSendMessage(text="ผมคือระบบตอบกลับอัตโนมัติ สร้างโดยคุณธนวินท์ ครับ")
             line_bot_api.reply_message(rtoken, replyObj)
         else:
             replyObj = TextSendMessage(text=msg)
