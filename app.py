@@ -63,9 +63,8 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "hello":
-            replyObj = TextSendMessage(text="go")
-            line_bot_api.reply_message(rtoken, replyObj)
+        replyObj = TextSendMessage(text="test")
+        line_bot_api.reply_message(rtoken, replyObj)
 
     else:
         sk_id = np.random.randint(1,17)
