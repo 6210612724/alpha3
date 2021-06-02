@@ -68,7 +68,7 @@ def event_handle(event):
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
-
+    line_bot_api.push_message(userId,"hi12")
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
