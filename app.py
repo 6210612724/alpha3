@@ -30,6 +30,7 @@ def callback():
     for i in range(no_event):
         event = decoded['events'][i]
         event_handle(event)
+        event_handle(event)
     return '',200
 
 def cost():
@@ -63,14 +64,8 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
-            #final_result = cost()
-            #replyObj = TextSendMessage(text=final_result)
-            #line_bot_api.reply_message(rtoken, replyObj)
-
-            for i in range(0,5):
-                i +=1
-            final = str(i)
-            replyObj = TextSendMessage(text=final)
+            final_result = cost()
+            replyObj = TextSendMessage(text=final_result)
             line_bot_api.reply_message(rtoken, replyObj)
             
 
