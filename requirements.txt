@@ -1,0 +1,8 @@
+Flask==2.0.1
+gunicorn==20.1.0
+posts
+requests
+wikipedia
+line-bot-sdk
+pandas==1.2.4
+googletrans
