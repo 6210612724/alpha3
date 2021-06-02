@@ -78,7 +78,6 @@ def event_handle(event):
                 final_result = cost()
                 replyObj = TextSendMessage(text=final_result)
                 line_bot_api.reply_message(rtoken, replyObj)
-                time.sleep(10)
                 i += 1
         else:
             replyObj = TextSendMessage(text=msg)
