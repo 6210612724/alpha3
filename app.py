@@ -52,7 +52,7 @@ def cost():
     sell_profit = want_sell - buy_money
     percent = (sell_profit / buy_money) * 100
 
-    result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\nซื้อมาที่ {buy_money} บาท\nถ้าขายจะได้{sell_profit:.2f}บาท คิดเป็น{status} {percent:.2f}%' 
+    result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money} บาท\n\nถ้าขายจะได้ {sell_profit:.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
 
     return result
 
@@ -82,7 +82,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "ทุก5วินาที":
+        if msg == "ทดสอบ":
             i= 0
             while i < 5:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
