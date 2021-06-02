@@ -68,11 +68,12 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         
-        if msg == "ทุก10วินาที":
+        if msg == "ทุก5วินาที":
             i= 0
-            while i < 7:
+            while i < 5:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-                time.sleep(10)
+                time.sleep(5)
+                i += 1
         
 
         
