@@ -39,7 +39,7 @@ def callback():
             event = decoded['events'][i]
             event_handle(event)
         i += 1
-        return '',200
+       
     
 
 def cost():
