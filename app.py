@@ -27,9 +27,9 @@ def callback():
     json_line = json.dumps(json_line)
     decoded = json.loads(json_line)
     no_event = len(decoded['events'])
-    #for i in range(no_event):
-    event = decoded['events'][0]
-    event_handle(event)
+    for i in range(no_event):
+        event = decoded['events'][i]
+        event_handle(event)
         
     return '',200
 
@@ -39,6 +39,7 @@ def cost():
     result = response.json()
     lastest_cost = str(result['THB_DOGE']['last'])
     return lastest_cost
+
 def event_handle(event):
     print(event)
     try:
@@ -65,8 +66,8 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
-            final_result = cost()
-            replyObj = TextSendMessage(text=final_result)
+            #final_result = cost()
+            replyObj = TextSendMessage(text=userId)
             line_bot_api.reply_message(rtoken, replyObj)
             
 
