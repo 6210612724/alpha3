@@ -2,7 +2,7 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
-#thanawin
+
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
@@ -61,9 +61,9 @@ def event_handle(event):
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
 
-    if msgType == "text":
-        msg = str(event["message"]["text"])
-        replyObj = TextSendMessage(text=msg)
+    if event == "hello":
+        #msg = str(event["message"]["text"])
+        replyObj = TextSendMessage("go")
         line_bot_api.reply_message(rtoken, replyObj)
 
     else:
