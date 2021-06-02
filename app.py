@@ -71,7 +71,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "doge":
+        if msg == "ราคา doge":
             final_result = cost()
             replyObj = TextSendMessage(text=final_result)
             line_bot_api.reply_message(rtoken, replyObj)
