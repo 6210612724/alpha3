@@ -42,6 +42,7 @@ def cost():
 
 def event_handle(event):
     print(event)
+    
     try:
         userId = event['source']['userId']
     except:
@@ -65,6 +66,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
+        line_bot_api.push_message('U5eb72e8415bb21e780ab9f30bc221f41', TextSendMessage(text='Hello World!'))
         if msg == "ราคา doge":
             #final_result = cost()
             replyObj = TextSendMessage(text=userId)
