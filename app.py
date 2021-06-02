@@ -26,10 +26,14 @@ def callback():
     json_line = request.get_json(force=False,cache=False)
     json_line = json.dumps(json_line)
     decoded = json.loads(json_line)
-    no_event = len(decoded['events'])
-    for i in range(no_event):
-        event = decoded['events'][i]
-        event_handle(event)
+    copy = decoded
+    i = 0
+    while i < 5:
+        no_event = len(copy['events'])
+        for i in range(no_event):
+            event = copy['events'][i]
+            event_handle(event)
+        i+=1
     return '',200
 
 def cost():
