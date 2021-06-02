@@ -2,12 +2,10 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
-
 from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
 import requests
-
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
 )
@@ -15,17 +13,13 @@ from linebot.models.template import *
 from linebot import (
     LineBotApi, WebhookHandler
 )
-
 app = Flask(__name__)
-
 lineaccesstoken = 'mjSxsXlCd85ns0d8mdIrZI3HJ55hGYV1MzWDqqiFM1txHUITTdaG12a5ws8/WhiGgthD7KfuLjgfgBM7UuxI8es7Pqwijx2gcaCedpp/EjVE0XLwOvGVDvL9JWrAfeP0MbEI0I6qg8OVIFlvhG9dXwdB04t89/1O/w1cDnyilFU='
 line_bot_api = LineBotApi(lineaccesstoken)
-
 ####################### new ########################
 @app.route('/')
 def index():
     return "Hello World!"
-
 
 @app.route('/webhook', methods=['POST'])
 def callback():
@@ -44,8 +38,6 @@ def cost():
     result = response.json()
     lastest_cost = str(result['THB_DOGE']['last'])
     return lastest_cost
-
-
 def event_handle(event):
     print(event)
     try:
@@ -53,7 +45,6 @@ def event_handle(event):
     except:
         print('error cannot get userId')
         return ''
-
     try:
         rtoken = event['replyToken']
     except:
@@ -75,17 +66,15 @@ def event_handle(event):
             final_result = cost()
             replyObj = TextSendMessage(text=final_result)
             line_bot_api.reply_message(rtoken, replyObj)
+            
+
         else:
             replyObj = TextSendMessage(text=msg)
             line_bot_api.reply_message(rtoken, replyObj)
-
-
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
     return ''
-
-
 if __name__ == '__main__':
     app.run(debug=True)
