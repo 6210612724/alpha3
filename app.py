@@ -7,6 +7,7 @@ from flask import Flask, jsonify, render_template, request
 import json
 import numpy as np
 import requests
+import time
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ImageSendMessage, StickerSendMessage, AudioSendMessage
@@ -72,9 +73,13 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "ราคา doge":
-            final_result = cost()
-            replyObj = TextSendMessage(text=final_result)
-            line_bot_api.reply_message(rtoken, replyObj)
+            i = 0
+            while i < 5:
+                final_result = cost()
+                replyObj = TextSendMessage(text=final_result)
+                line_bot_api.reply_message(rtoken, replyObj)
+                time.sleep(10)
+                i += 1
         else:
             replyObj = TextSendMessage(text=msg)
             line_bot_api.reply_message(rtoken, replyObj)
