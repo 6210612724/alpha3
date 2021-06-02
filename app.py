@@ -44,14 +44,15 @@ def cost():
     want_sell = (lastest_cost / buy_cost) * buy_money
     status = ""
     if want_sell > buy_money:
-        status = 'ได้กำไร'
+        status = 'กำไร'
     elif want_sell == buy_money:
         status = 'เสมอทุน'
     else:
         status = 'ขาดทุน'
     sell_profit = want_sell - buy_money
+    percent = (sell_profit / buy_money) * 100
 
-    result = f'ราคา DOGE: {lastest_cost} บาท ถ้าขายจะได้{status} {sell_profit}.'
+    result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\nซื้อมาที่ {buy_money} บาท\nถ้าขายจะได้{sell_profit:.2f}บาท คิดเป็น{status} {percent:.2f}%' 
 
     return result
 
