@@ -66,7 +66,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        line_bot_api.push_message('U5eb72e8415bb21e780ab9f30bc221f41', TextSendMessage(text='Hello World!'))
+        line_bot_api.push_message(userId, TextSendMessage(text='Hello World!'))
         if msg == "ราคา doge":
             #final_result = cost()
             replyObj = TextSendMessage(text=userId)
@@ -80,7 +80,7 @@ def event_handle(event):
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
-    event_handle(event)
+    
     return ''
 if __name__ == '__main__':
     app.run(debug=True)
