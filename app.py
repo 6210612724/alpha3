@@ -83,11 +83,11 @@ def event_handle(event):
     if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "อัพเดตราคา":
-            i= 0
-            while i < 51:
+            #i= 0
+            while True:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
                 time.sleep(5)
-                i += 1
+                #i += 1
         
     else:
         sk_id = np.random.randint(1,17)
