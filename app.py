@@ -89,22 +89,6 @@ def event_handle(event):
                 time.sleep(5)
                 i += 1
         
-
-        
-        
-        
-        
-        
-        
-        """ if msg == "ราคา doge":
-            #final_result = cost()
-            replyObj = TextSendMessage(text=userId)
-            line_bot_api.reply_message(rtoken, replyObj)
-            
-
-        else:
-            replyObj = TextSendMessage(text=msg)
-            line_bot_api.reply_message(rtoken, replyObj) """
     else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
