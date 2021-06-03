@@ -39,8 +39,8 @@ def cost():
     response =  requests.get(api_host + '/api/market/ticker')
     result = response.json()
     lastest_cost = result['THB_DOGE']['last']
-    buy_cost = 11.2
-    buy_money = 50000
+    buy_cost = 12.72
+    buy_money = 42332.87
     want_sell = (lastest_cost / buy_cost) * buy_money
     status = ""
     if want_sell > buy_money:
@@ -82,7 +82,7 @@ def event_handle(event):
 
     if msgType == "text":
         msg = str(event["message"]["text"])
-        if msg == "ทดสอบ":
+        if msg == "อัพเดตราคา":
             i= 0
             while i < 5:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
