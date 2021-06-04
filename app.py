@@ -30,7 +30,8 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
         event = decoded['events'][i]
-        event_handle(event)
+        use_infor = event_handle(event)
+        process(use_infor)
         
     return '',200
 
@@ -58,9 +59,10 @@ def cost():
 
 def event_handle(event):
     print(event)
-    
+    infor_list = []
     try:
         userId = event['source']['userId']
+        infor_list.append(userId)
     except:
         print('error cannot get userId')
         return ''
@@ -78,22 +80,24 @@ def event_handle(event):
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
-    
+    infor_list.append(event["message"]["text"])
 
-    if msgType == "text":
-        msg = str(event["message"]["text"])
-        if msg == "อัพเดตราคา":
-            #i= 0
-            while True:
-                line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-                time.sleep(1)
-                #i += 1
+    return infor_list
+    
+def process(use_infor):
+
+    if use_infor[1] == "ราคา":
+        i = 0
+        while i < 7:
+            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
+            time.sleep(1)
+            i += 1
         
-    else:
+    """ else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
-        line_bot_api.reply_message(rtoken, replyObj)
+        line_bot_api.reply_message(rtoken, replyObj) """
     
-    return ''
+    #return ''
 if __name__ == '__main__':
     app.run(debug=True)
