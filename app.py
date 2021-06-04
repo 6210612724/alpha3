@@ -88,13 +88,18 @@ def process(use_infor):
 
     if use_infor[1] == "ราคา":
         i = 0
+        j = 0 
         while i < 10:
             line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
             time.sleep(5)
             if i > 4:
                 process(use_infor)
+                j += 1
             else:
                 i += 1
+            if j == 7:
+                break
+
         
     """ else:
         sk_id = np.random.randint(1,17)
