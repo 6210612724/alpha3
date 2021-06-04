@@ -86,7 +86,7 @@ def event_handle(event):
             #i= 0
             while True:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-                time.sleep(5)
+                time.sleep(1)
                 #i += 1
         
     else:
