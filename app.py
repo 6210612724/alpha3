@@ -35,13 +35,13 @@ def callback():
         
     return '',200
 
-def cost():
+def cost(order[2]):
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
     result = response.json()
     lastest_cost = result['THB_DOGE']['last']
     buy_cost = 12.72
-    buy_money = 42332.87
+    buy_money = float(order[2])
     want_sell = (lastest_cost / buy_cost) * buy_money
     status = ""
     if want_sell > buy_money:
@@ -53,7 +53,7 @@ def cost():
     sell_profit = want_sell - buy_money
     percent = (sell_profit / buy_money) * 100
 
-    result = f'ตอนนี้ร DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท\nคิดเป็น{status} {percent:.2f}%' 
+    result = f'ตอนนี้ DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะ{status} {sell_profit:,.2f} บาท\nคิดเป็น{status} {percent:.2f}%' 
 
     return result
 
@@ -85,12 +85,12 @@ def event_handle(event):
     return infor_list
     
 def process(use_infor):
-
-    if use_infor[1] == "ราคา":
+    order = use_infor[1].split(" ")
+    if order[0] == "อัพเดต":
         i = 0
         while i < 8:
-            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
-            time.sleep(5)
+            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost(order[2]))
+            time.sleep(4)
             i += 1
         
     """ else:
