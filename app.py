@@ -88,9 +88,9 @@ def process(use_infor):
 
     if use_infor[1] == "ราคา":
         i = 0
-        while i < 7:
+        while i < 8:
             line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
-            time.sleep(1)
+            time.sleep(5)
             i += 1
         
     """ else:
