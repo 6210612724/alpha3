@@ -93,8 +93,8 @@ def process(use_infor):
             time.sleep(5)
             if i > 4:
                 process(use_infor)
-
-            i += 1
+            else:
+                i += 1
         
     """ else:
         sk_id = np.random.randint(1,17)
