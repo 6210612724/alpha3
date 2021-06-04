@@ -89,7 +89,7 @@ def process(use_infor):
     if order[0] == "อัพเดต":
         i = 0
         money = float(order[2])
-        while i < 8:
+        while i < 226:
             line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost(money)))
             time.sleep(4)
             i += 1
