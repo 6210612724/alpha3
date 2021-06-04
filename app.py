@@ -28,10 +28,10 @@ def callback():
     json_line = json.dumps(json_line)
     decoded = json.loads(json_line)
     no_event = len(decoded['events'])
-    for i in range(no_event):
-        event = decoded['events'][i]
-        use_infor = event_handle(event)
-        process(use_infor)
+    #for i in range(no_event):
+    event = decoded['events'][0]
+    use_infor = event_handle(event)
+    process(use_infor)
         
     return '',200
 
