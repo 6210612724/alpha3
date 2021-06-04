@@ -35,13 +35,13 @@ def callback():
         
     return '',200
 
-def cost():
+def cost(money):
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
     result = response.json()
     lastest_cost = result['THB_DOGE']['last']
     buy_cost = 12.72
-    buy_money = 50000.00
+    buy_money = money
     want_sell = (lastest_cost / buy_cost) * buy_money
     status = ""
     if want_sell > buy_money:
@@ -88,8 +88,9 @@ def process(use_infor):
     order = use_infor[1].split(" ")
     if order[0] == "อัพเดต":
         i = 0
+        money = float(order[2])
         while i < 8:
-            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
+            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost(money)))
             time.sleep(4)
             i += 1
         
