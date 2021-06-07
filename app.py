@@ -32,7 +32,7 @@ def callback():
         result = event_handle(event)
         if result[1] == 'update':
             i = 0
-            while i < 8:
+            while i < 40:
                 line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
                 line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
                 i += 1
