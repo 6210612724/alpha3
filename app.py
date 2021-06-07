@@ -30,16 +30,20 @@ def callback():
     for i in range(no_event):
         event = decoded['events'][i]
         result = event_handle(event)
-        if result[1] == 'update':
+        process(result)
+    
+            
+
+
+
+    return '',200
+def process(result):
+    if result[1] == 'update':
             i = 0
             while i < 40:
                 line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
                 line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
                 i += 1
-            
-
-
-    return '',200
 def cost():
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
