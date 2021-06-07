@@ -35,6 +35,7 @@ def callback():
             while i < 8:
                 line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
                 line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
+                i += 1
             
 
 
