@@ -50,7 +50,7 @@ def cost():
     sell_profit = want_sell - buy_money
     percent = (sell_profit / buy_money) * 100
     result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
-    
+
     return result
 def event_handle(event):
     print(event)
@@ -80,9 +80,10 @@ def event_handle(event):
         msg = str(event["message"]["text"])
         if msg == "อัพเดตราคา":
             i= 0
-            while i < 5:
+            while i < 8:
                 line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-                time.sleep(5)
+                line_bot_api.push_message(userId, TextSendMessage(text=str(i)))
+                time.sleep(4)
                 i += 1
         
     else:
