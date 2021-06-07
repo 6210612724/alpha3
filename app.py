@@ -40,9 +40,10 @@ def callback():
 def process(result):
     if result[1] == 'update':
             i = 0
-            while i < 40:
+            while i < 10:
                 line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
                 line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
+                time.sleep(5)
                 i += 1
 def cost():
     api_host = 'https://api.bitkub.com'
