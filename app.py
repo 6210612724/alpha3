@@ -75,6 +75,12 @@ def event_handle(event):
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
     
+    i= 0
+    while i < 8:
+        #line_bot_api.push_message(userId, TextSendMessage(text=cost()))
+        line_bot_api.push_message(userId, TextSendMessage(text=str(i)))
+        #time.sleep(4)
+        i += 1
 
     if msgType == "text":
         msg = str(event["message"]["text"])
