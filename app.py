@@ -30,8 +30,8 @@ def callback():
     for i in range(no_event):
         event = decoded['events'][i]
         result = event_handle(event)
-        if result[1] == 'ราคา':
-            line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
+        if result[1] == 'update':
+            line_bot_api.push_message(result[0], TextSendMessage(text='hello'))
             
 
 
@@ -53,9 +53,9 @@ def cost():
         status = 'ขาดทุน'
     sell_profit = want_sell - buy_money
     percent = (sell_profit / buy_money) * 100
-    result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
+    result_cost = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
 
-    return result
+    return result_cost
 def event_handle(event):
     print(event)
     
@@ -82,22 +82,7 @@ def event_handle(event):
     return userId,msg
 
     
-   """  if msgType == "text":
-        msg = str(event["message"]["text"])
-        if msg == "อัพเดตราคา":
-            i= 0
-            while i < 8:
-                line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-                line_bot_api.push_message(userId, TextSendMessage(text=str(i)))
-                time.sleep(4)
-                i += 1
-        
-    else:
-        sk_id = np.random.randint(1,17)
-        replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
-        line_bot_api.reply_message(rtoken, replyObj)
-     """
-    #return ''
+   
 
 if __name__ == '__main__':
     app.run(debug=True)
