@@ -31,7 +31,10 @@ def callback():
         event = decoded['events'][i]
         result = event_handle(event)
         if result[1] == 'update':
-            line_bot_api.push_message(result[0], TextSendMessage(text='hello'))
+            i = 0
+            while i < 8:
+                line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
+                line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
             
 
 
