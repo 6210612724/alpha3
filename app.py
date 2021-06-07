@@ -2,6 +2,7 @@
 #-*-coding: utf-8 -*-
 ##from __future__ import absolute_import
 ###
+from os import terminal_size
 from flask import Flask, jsonify, render_template, request
 import json
 import time
@@ -38,17 +39,17 @@ def callback():
 
     return '',200
 def process(result):
-    if result[1] == 'update':
-            i = 0
-            while i < 40:
-                line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
-                line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
-                seconds = time.time()
-                local_time = time.ctime(seconds)
-                #print("Local time:", local_time)
-                line_bot_api.push_message(result[0], TextSendMessage(text=local_time))
-                #time.sleep(5)
-                i += 1
+    new = cost()
+    while True:
+        if result[1] == 'update' and new > 11.82 :
+            line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
+            #line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
+            #seconds = time.time()
+            #local_time = time.ctime(seconds)
+            #print("Local time:", local_time)
+            #line_bot_api.push_message(result[0], TextSendMessage(text=local_time))
+            #time.sleep(5)
+            
 def cost():
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
@@ -68,7 +69,7 @@ def cost():
     percent = (sell_profit / buy_money) * 100
     result_cost = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
 
-    return result_cost
+    return lastest_cost
 def event_handle(event):
     print(event)
     
