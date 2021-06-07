@@ -45,7 +45,8 @@ def process(result):
                 line_bot_api.push_message(result[0], TextSendMessage(text=str(i)))
                 seconds = time.time()
                 local_time = time.ctime(seconds)
-                print("Local time:", local_time)
+                #print("Local time:", local_time)
+                line_bot_api.push_message(result[0], TextSendMessage(text=local_time))
                 #time.sleep(5)
                 i += 1
 def cost():
