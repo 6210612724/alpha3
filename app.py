@@ -21,7 +21,6 @@ line_bot_api = LineBotApi(lineaccesstoken)
 @app.route('/')
 def index():
     return "Hello World!"
-
 @app.route('/webhook', methods=['POST'])
 def callback():
     json_line = request.get_json(force=False,cache=False)
@@ -30,11 +29,9 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
         event = decoded['events'][i]
-        use_infor = event_handle(event)
-        process(use_infor)
+        event_handle(event)
         
     return '',200
-
 def cost():
     api_host = 'https://api.bitkub.com'
     response =  requests.get(api_host + '/api/market/ticker')
@@ -52,17 +49,14 @@ def cost():
         status = 'ขาดทุน'
     sell_profit = want_sell - buy_money
     percent = (sell_profit / buy_money) * 100
-
-    result = f'ตอนนี้ DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะ{status} {sell_profit:,.2f} บาท\nคิดเป็น{status} {percent:.2f}%' 
-
+    result = f'ตอนนี้ราคา DOGE: {lastest_cost} บาท\n\nซื้อมาที่ {buy_money:,} บาท\n\nถ้าขายจะได้ {sell_profit:,.2f} บาท คิดเป็น{status}\n{percent:.2f}%' 
+    
     return result
-
 def event_handle(event):
     print(event)
-    infor_list = []
+    
     try:
         userId = event['source']['userId']
-        infor_list.append(userId)
     except:
         print('error cannot get userId')
         return ''
@@ -80,29 +74,22 @@ def event_handle(event):
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
-    infor_list.append(event["message"]["text"])
-
-    return infor_list
     
-def process(use_infor):
 
-    if use_infor[1] == "ราคา":
-        i = 0
-        while i < 10:
-            line_bot_api.push_message(use_infor[0], TextSendMessage(text=cost()))
-            line_bot_api.push_message(use_infor[0], TextSendMessage(text=str(i)))
-            time.sleep(5)
-            if i > 4:
-                process(use_infor)
-            else:
+    if msgType == "text":
+        msg = str(event["message"]["text"])
+        if msg == "อัพเดตราคา":
+            i= 0
+            while i < 5:
+                line_bot_api.push_message(userId, TextSendMessage(text=cost()))
+                time.sleep(5)
                 i += 1
-           
         
-    """ else:
+    else:
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
-        line_bot_api.reply_message(rtoken, replyObj) """
+        line_bot_api.reply_message(rtoken, replyObj)
     
-    #return ''
+    return ''
 if __name__ == '__main__':
     app.run(debug=True)
