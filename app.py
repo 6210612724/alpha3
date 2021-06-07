@@ -29,8 +29,12 @@ def callback():
     no_event = len(decoded['events'])
     for i in range(no_event):
         event = decoded['events'][i]
-        event_handle(event)
-        
+        result = event_handle(event)
+        if result[1] == 'ราคา':
+            line_bot_api.push_message(result[0], TextSendMessage(text=cost()))
+            
+
+
     return '',200
 def cost():
     api_host = 'https://api.bitkub.com'
@@ -74,15 +78,11 @@ def event_handle(event):
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
         return ''
-    
-    i= 0
-    while i < 8:
-        #line_bot_api.push_message(userId, TextSendMessage(text=cost()))
-        line_bot_api.push_message(userId, TextSendMessage(text=str(i)))
-        #time.sleep(4)
-        i += 1
+    msg = str(event["message"]["text"])
+    return userId,msg
 
-    if msgType == "text":
+    
+   """  if msgType == "text":
         msg = str(event["message"]["text"])
         if msg == "อัพเดตราคา":
             i= 0
@@ -96,7 +96,8 @@ def event_handle(event):
         sk_id = np.random.randint(1,17)
         replyObj = StickerSendMessage(package_id=str(1),sticker_id=str(sk_id))
         line_bot_api.reply_message(rtoken, replyObj)
-    
-    return ''
+     """
+    #return ''
+
 if __name__ == '__main__':
     app.run(debug=True)
